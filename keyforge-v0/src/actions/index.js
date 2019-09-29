@@ -1,11 +1,13 @@
 import { DECREMENT_COUNTER, INCREMENT_COUNTER } from "./types/counter";
 
-export const decrementCounter = value => ({
+export const decrementCounter = (value, id) => ({
   type: DECREMENT_COUNTER,
-  value
+  value,
+  id
 });
 
-export const incrementCounter = value => ({
+export const incrementCounter = (value, id) => ({
   type: INCREMENT_COUNTER,
-  value
+  value,
+  id
 });
