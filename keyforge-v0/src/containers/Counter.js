@@ -1,14 +1,11 @@
 import { connect } from "react-redux";
 import { decrementCounter, incrementCounter } from "../actions";
+import { getCount } from "../selectors/counter";
 import Counter from "../components/Counter";
 
-const mapStateToProps = (state, ownProps) => {
-  console.log(state);
-  console.log(ownProps);
-  return {
-    value: state.counter
-  };
-};
+const mapStateToProps = (state, ownProps) => ({
+  value: getCount(state)
+});
 
 const mapDispatchToProps = (dispatch, ownProps) => {
   return {
