@@ -21,19 +21,22 @@ describe("Counter: ", () => {
   afterEach(cleanup);
 
   test("renders with redux with defaults", () => {
-    const { getByTestId, getByText } = renderWithRedux(<Counter />);
-    fireEvent.click(getByText("+"));
-    expect(getByTestId("count-value").textContent).toBe("1");
+    const { getByTestId } = renderWithRedux(<Counter id={"player-1"} />);
+    expect(getByTestId("count-value").textContent).toBe("0");
   });
 
-  test("renders with redux with custom initial state", () => {
-    const { getByTestId, getByText } = renderWithRedux(<Counter />);
+  test("decrements the counter value by 1 when - is clicked", () => {
+    const { getByTestId, getByText } = renderWithRedux(
+      <Counter id={"player-1"} />
+    );
     fireEvent.click(getByText("-"));
     expect(getByTestId("count-value").textContent).toBe("-1");
   });
 
-  test("renders with redux with custom initial state", () => {
-    const { getByTestId, getByText } = renderWithRedux(<Counter />);
+  test("increments the counter value by 1 when + is clicked", () => {
+    const { getByTestId, getByText } = renderWithRedux(
+      <Counter id={"player-1"} />
+    );
     fireEvent.click(getByText("+"));
     expect(getByTestId("count-value").textContent).toBe("1");
   });
