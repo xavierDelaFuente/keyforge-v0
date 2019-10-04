@@ -9,4 +9,11 @@ const mapStateToProps = (state, props) => {
   };
 };
 
-export default connect(mapStateToProps)(Player);
+const mapDispatchToProps = (dispatch, ownProps) => {
+  return {};
+};
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(Player);
