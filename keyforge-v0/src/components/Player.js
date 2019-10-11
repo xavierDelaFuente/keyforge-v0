@@ -1,6 +1,7 @@
 import React from "react";
 import KeysCounter from "../containers/KeysCounter";
 import FragmentsStealer from "../containers/FragmentsStealer";
+import FragmentsCapturer from "../containers/FragmentsCapturer";
 import PropTypes from "prop-types";
 
 const Player = ({ name, id }) => (
@@ -15,6 +16,7 @@ const Player = ({ name, id }) => (
     <h1>{name}</h1>
     <KeysCounter id={id} keyCost={6} />
     <FragmentsStealer id={id} />
+    <FragmentsCapturer id={id} />
   </div>
 );
 

@@ -1,11 +1,9 @@
 import {
   DECREMENT_COUNTER,
   INCREMENT_COUNTER,
-  RESET_PLAYER_COUNTER,
+  RESET_COUNTER,
   STEAL_FRAGMENTS,
-  INCREMENT_STEAL,
-  DECREMENT_STEAL,
-  RESET_PLAYER_STEAL_COUNTER
+  CAPTURE_FRAGMENTS,
 } from "../actions/types/counter";
 
 const initalValue = 0;
@@ -15,70 +13,64 @@ export const initialState = {
     "player-1": {
       id: "player-1",
       count: initalValue,
-      steal: initalValue
+      steal: initalValue,
+      capture: initalValue,
+      capturedFragments: initalValue,
     },
     "player-2": {
       id: "player-2",
       count: initalValue,
-      steal: initalValue
+      steal: initalValue,
+      capture: initalValue,
+      capturedFragments: initalValue,
     }
   }
 };
 
 export const counter = (state = initialState, action) => {
-  let id, value;
+  let id, value, key;
   switch (action.type) {
     case INCREMENT_COUNTER:
-      ({ id, value } = action);
+      ({ id, value, key } = action);
       return {
         ...state,
         byId: {
           ...state.byId,
           [id]: {
             ...state.byId[id],
-            count: state.byId[id].count + value
+            [key]: state.byId[id][key] + value
           }
         }
       };
     case DECREMENT_COUNTER:
-      ({ id, value } = action);
+      ({ id, value, key } = action);
       return {
         ...state,
         byId: {
           ...state.byId,
           [id]: {
             ...state.byId[id],
-            count: state.byId[id].count - value
+            [key]: state.byId[id][key] - value
           }
         }
       };
-    case INCREMENT_STEAL:
-      ({ id, value } = action);
-      return {
-        ...state,
-        byId: {
-          ...state.byId,
-          [id]: {
-            ...state.byId[id],
-            steal: state.byId[id].steal + value
-          }
-        }
-      };
-    case DECREMENT_STEAL:
-      ({ id, value } = action);
-      return {
-        ...state,
-        byId: {
-          ...state.byId,
-          [id]: {
-            ...state.byId[id],
-            steal: state.byId[id].steal - value
-          }
-        }
-      };
+      case RESET_COUNTER:
+          ({ id, value, key } = action);
+          return {
+            ...state,
+            byId: {
+              ...state.byId,
+              [id]: {
+                ...state.byId[id],
+                [key]: initalValue
+              }
+            }
+          };
     case STEAL_FRAGMENTS:
       ({ id, value } = action);
-      const otherPlayersId = state.allIds.filter(identifier => identifier !== id)
+      const otherPlayersId = state.allIds.filter(
+        identifier => identifier !== id
+      );
       return {
         ...state,
         byId: {
@@ -86,35 +78,33 @@ export const counter = (state = initialState, action) => {
           [otherPlayersId]: {
             ...state.byId[otherPlayersId],
             count: state.byId[otherPlayersId].count - value
-          }
-        }
-      };
-    case RESET_PLAYER_COUNTER:
-      ({ id, value } = action);
-      return {
-        ...state,
-        byId: {
-          ...state.byId,
+          },
           [id]: {
             ...state.byId[id],
-            count: initalValue
+            count: state.byId[id].count + value
           }
         }
       };
-      case RESET_PLAYER_STEAL_COUNTER:
-          ({ id, value } = action);
-          return {
-            ...state,
-            byId: {
-              ...state.byId,
-              [id]: {
-                ...state.byId[id],
-                steal: initalValue
-              }
+      case CAPTURE_FRAGMENTS:
+        ({ id, value } = action);
+        const otherId = state.allIds.filter(
+          identifier => identifier !== id
+        );
+        return {
+          ...state,
+          byId: {
+            ...state.byId,
+            [otherId]: {
+              ...state.byId[otherId],
+              count: state.byId[otherId].count - value
+            },
+            [id]: {
+              ...state.byId[id],
+              capturedFragments: state.byId[id].capturedFragments + value
             }
-          };
+          }
+        };
     default:
       return state;
   }
 };
-// state.allIds.filter(id => id !== action.id)
