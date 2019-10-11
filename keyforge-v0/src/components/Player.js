@@ -1,8 +1,9 @@
 import React from "react";
-import Counter from "../containers/Counter";
+import KeysCounter from "../containers/KeysCounter";
+import FragmentsStealer from "../containers/FragmentsStealer";
 import PropTypes from "prop-types";
 
-const Player = ({ name, id, keys }) => (
+const Player = ({ name, id }) => (
   <div
     style={{
       display: "flex",
@@ -12,15 +13,14 @@ const Player = ({ name, id, keys }) => (
     data-testid="player"
   >
     <h1>{name}</h1>
-    <div> Keys: {keys}</div>
-    <Counter id={id} />
+    <KeysCounter id={id} keyCost={6} />
+    <FragmentsStealer id={id} />
   </div>
 );
 
 Player.propTypes = {
   name: PropTypes.string,
-  id: PropTypes.string.isRequired,
-  keys: PropTypes.number
+  id: PropTypes.string.isRequired
 };
 
 Player.defaultProps = {
