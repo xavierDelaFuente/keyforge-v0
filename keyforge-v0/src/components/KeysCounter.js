@@ -1,5 +1,5 @@
 import React from "react";
-import Counter from "../containers/Counter";
+import Counter from "./Counter";
 import PropTypes from "prop-types";
 
 const KeysCounter = ({
@@ -8,10 +8,11 @@ const KeysCounter = ({
   forgeKey,
   resetCounter,
   keyCost,
-  counterValue
+  counterValue,
+  decrementCounter,
+  incrementCounter
 }) => {
   const canGenerateKey = () => counterValue >= keyCost;
-  // const generateKey = () => canGenerateKey() ? forgeKey(id): null
   const generateKey = () => {
     if (canGenerateKey()) {
       forgeKey(id);
@@ -25,6 +26,7 @@ const KeysCounter = ({
         justifyContent: "space-around",
         flexDirection: "column"
       }}
+      data-testid="keys-counter"
     >
       <div
         data-testid="keys-value"
@@ -34,8 +36,14 @@ const KeysCounter = ({
       >
         Keys: {keys}
       </div>
-      <Counter id={id} />
-      <button onClick={() => generateKey(id, keyCost)}> Forge Key </button>
+      <Counter
+        id={id}
+        title="Fragments"
+        value={counterValue}
+        onIncrement={incrementCounter}
+        onDecrement={decrementCounter}
+      />
+      <button onClick={() => generateKey(id, keyCost)}>Forge Key</button>
     </div>
   );
 };
