@@ -79,7 +79,7 @@ describe("FragmentsStealer: ", () => {
 
   test("if the other player has fragments, click Steal Fragments will steal from other player s fragments", () => {
     const { store } = renderWithRedux(<App />);
-    store.dispatch(incrementCounter(2, "player-2"));
+    store.dispatch(incrementCounter(2, "player-2", 'count'));
     expect(getPlayerFragments({ player: 1 }).textContent).toBe("0");
     expect(getPlayerFragments({ player: 2 }).textContent).toBe("2");
 

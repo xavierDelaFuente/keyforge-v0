@@ -2,10 +2,10 @@ import { connect } from "react-redux";
 import FragmentsStealer from "../components/FragmentsStealer";
 import { getSteal } from "../selectors/counter";
 import {
-  decrementSteal,
-  incrementSteal,
+  decrementCounter,
+  incrementCounter,
   stealFragments,
-  resetPlayerStealCounter
+  resetCounter
 } from "../actions";
 
 const mapStateToProps = (state, props) => {
@@ -14,12 +14,12 @@ const mapStateToProps = (state, props) => {
   };
 };
 
-const mapDispatchToProps = (dispatch, ownProps) => {
+const mapDispatchToProps = dispatch => {
   return {
     stealFragments: (value, id) => dispatch(stealFragments(value, id)),
-    resetCounter: id => dispatch(resetPlayerStealCounter(id)),
-    decrementCounter: id => dispatch(decrementSteal(1, id)),
-    incrementCounter: id => dispatch(incrementSteal(1, id))
+    resetCounter: id => dispatch(resetCounter(id, 'steal')),
+    decrementCounter: id => dispatch(decrementCounter(1, id, 'steal')),
+    incrementCounter: id => dispatch(incrementCounter(1, id, 'steal'))
   };
 };
 
