@@ -1,45 +1,34 @@
 import {
   DECREMENT_COUNTER,
   INCREMENT_COUNTER,
-  RESET_PLAYER_COUNTER,
+  RESET_COUNTER,
   STEAL_FRAGMENTS,
-  DECREMENT_STEAL,
-  INCREMENT_STEAL,
-  RESET_PLAYER_STEAL_COUNTER
+  CAPTURE_FRAGMENTS,
 } from "./types/counter";
 import { FORGE_KEY } from "./types/keys";
 
-export const decrementCounter = (value, id) => ({
+export const decrementCounter = (value, id, key) => ({
   type: DECREMENT_COUNTER,
   value,
-  id
+  id,
+  key
 });
 
-export const incrementCounter = (value, id) => ({
+export const incrementCounter = (value, id, key) => ({
   type: INCREMENT_COUNTER,
   value,
-  id
+  id,
+  key
 });
 
-export const resetPlayerCounter = id => ({
-  type: RESET_PLAYER_COUNTER,
-  id
+export const resetCounter = (id, key) => ({
+  type: RESET_COUNTER,
+  id,
+  key
 });
 
 export const forgeKey = id => ({
   type: FORGE_KEY,
-  id
-});
-
-export const decrementSteal = (value, id) => ({
-  type: DECREMENT_STEAL,
-  value,
-  id
-});
-
-export const incrementSteal = (value, id) => ({
-  type: INCREMENT_STEAL,
-  value,
   id
 });
 
@@ -49,7 +38,8 @@ export const stealFragments = (value, id) => ({
   id
 });
 
-export const resetPlayerStealCounter = id => ({
-  type: RESET_PLAYER_STEAL_COUNTER,
+export const captureFragments = (value, id) => ({
+  type: CAPTURE_FRAGMENTS,
+  value,
   id
 });

@@ -7,5 +7,5 @@ import { keys } from "./keys";
 export default combineReducers({
   counter,
   keys,
-  readiness,
+  readiness
 });

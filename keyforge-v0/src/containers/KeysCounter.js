@@ -6,7 +6,7 @@ import {
   decrementCounter,
   incrementCounter,
   forgeKey,
-  resetPlayerCounter
+  resetCounter
 } from "../actions";
 
 const mapStateToProps = (state, props) => {
@@ -19,9 +19,9 @@ const mapStateToProps = (state, props) => {
 const mapDispatchToProps = (dispatch, ownProps) => {
   return {
     forgeKey: id => dispatch(forgeKey(id)),
-    resetCounter: id => dispatch(resetPlayerCounter(id)),
-    decrementCounter: id => dispatch(decrementCounter(1, id)),
-    incrementCounter: id => dispatch(incrementCounter(1, id))
+    resetCounter: id => dispatch(resetCounter(id, 'count')),
+    decrementCounter: id => dispatch(decrementCounter(1, id, 'count')),
+    incrementCounter: id => dispatch(incrementCounter(1, id, 'count'))
   };
 };
 
