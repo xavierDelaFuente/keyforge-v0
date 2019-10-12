@@ -6,13 +6,11 @@ const Counter = ({ onDecrement, onIncrement, value, id }) => (
     style={{ display: "flex", justifyContent: "space-around", margin: "1em" }}
   >
     <button onClick={() => onDecrement(id)} data-testid="-">
-      {" "}
-      -{" "}
+      -
     </button>
     <div data-testid="count-value">{value}</div>
     <button onClick={() => onIncrement(id)} data-testid="+">
-      {" "}
-      +{" "}
+      +
     </button>
   </div>
 );

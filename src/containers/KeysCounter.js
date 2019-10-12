@@ -2,12 +2,7 @@ import { connect } from "react-redux";
 import KeysCounter from "../components/KeysCounter";
 import { getPlayerKeyCount } from "../selectors/keys";
 import { getCount } from "../selectors/counter";
-import {
-  decrementCounter,
-  incrementCounter,
-  forgeKey,
-  resetCounter
-} from "../actions";
+import { incrementCounter, forgeKey, resetCounter } from "../actions";
 
 const mapStateToProps = (state, props) => {
   return {
@@ -19,9 +14,9 @@ const mapStateToProps = (state, props) => {
 const mapDispatchToProps = (dispatch, ownProps) => {
   return {
     forgeKey: id => dispatch(forgeKey(id)),
-    resetCounter: id => dispatch(resetCounter(id, 'count')),
-    decrementCounter: id => dispatch(decrementCounter(1, id, 'count')),
-    incrementCounter: id => dispatch(incrementCounter(1, id, 'count'))
+    resetCounter: id => dispatch(resetCounter(id, "count")),
+    decrementCounter: id => dispatch(incrementCounter(-1, id, "count")),
+    incrementCounter: id => dispatch(incrementCounter(1, id, "count"))
   };
 };
 

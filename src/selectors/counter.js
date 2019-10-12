@@ -15,4 +15,3 @@ export const getCapture = (state, props) => {
 export const getCapturedFragments = (state, props) => {
   return getCounter(state, props).byId[props.id].capturedFragments;
 };
-

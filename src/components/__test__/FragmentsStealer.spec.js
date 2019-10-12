@@ -43,6 +43,10 @@ describe("FragmentsStealer: ", () => {
     getPlayerFragmentsStealer({ player: player }).querySelector(
       '[data-testid="+"]'
     );
+  const getPlayerFragmentsStealerDecreaseButton = ({ player }) =>
+    getPlayerFragmentsStealer({ player: player }).querySelector(
+      '[data-testid="-"]'
+    );
   const getPlayerFragmentsStealerStealButton = ({ player }) =>
     getPlayerFragmentsStealer({ player: player }).querySelector(
       '[data-testid="steal-fragments"]'
@@ -77,9 +81,30 @@ describe("FragmentsStealer: ", () => {
     );
   });
 
+  test("a player can increase the steal counter value by presing - if its bigger than 0", () => {
+    renderWithRedux(<App />);
+
+    fireEvent.click(getPlayerFragmentsStealerDecreaseButton({ player: 1 }));
+
+    expect(getPlayerFragmentsStealerCounter({ player: 1 }).textContent).toBe(
+      "0"
+    );
+  });
+
+  test("a player can increase the steal counter value by presing -", () => {
+    renderWithRedux(<App />);
+
+    fireEvent.click(getPlayerFragmentsStealerIncreaseButton({ player: 1 }));
+    fireEvent.click(getPlayerFragmentsStealerDecreaseButton({ player: 1 }));
+
+    expect(getPlayerFragmentsStealerCounter({ player: 1 }).textContent).toBe(
+      "0"
+    );
+  });
+
   test("if the other player has fragments, click Steal Fragments will steal from other player s fragments", () => {
     const { store } = renderWithRedux(<App />);
-    store.dispatch(incrementCounter(2, "player-2", 'count'));
+    store.dispatch(incrementCounter(2, "player-2", "count"));
     expect(getPlayerFragments({ player: 1 }).textContent).toBe("0");
     expect(getPlayerFragments({ player: 2 }).textContent).toBe("2");
 
@@ -99,5 +124,20 @@ describe("FragmentsStealer: ", () => {
     expect(getPlayerFragmentsStealerCounter({ player: 2 }).textContent).toBe(
       "0"
     );
+  });
+
+  test("the maximum to steal is other player s current fragments", () => {
+    const { store } = renderWithRedux(<App />);
+    store.dispatch(incrementCounter(2, "player-2", "count"));
+    expect(getPlayerFragments({ player: 1 }).textContent).toBe("0");
+    expect(getPlayerFragments({ player: 2 }).textContent).toBe("2");
+
+    fireEvent.click(getPlayerFragmentsStealerIncreaseButton({ player: 1 }));
+    fireEvent.click(getPlayerFragmentsStealerIncreaseButton({ player: 1 }));
+    fireEvent.click(getPlayerFragmentsStealerIncreaseButton({ player: 1 }));
+    fireEvent.click(getPlayerFragmentsStealerStealButton({ player: 1 }));
+
+    expect(getPlayerFragments({ player: 1 }).textContent).toBe("2");
+    expect(getPlayerFragments({ player: 2 }).textContent).toBe("0");
   });
 });

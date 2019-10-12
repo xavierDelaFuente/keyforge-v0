@@ -3,7 +3,7 @@ import {
   INCREMENT_COUNTER,
   RESET_COUNTER,
   STEAL_FRAGMENTS,
-  CAPTURE_FRAGMENTS,
+  CAPTURE_FRAGMENTS
 } from "./types/counter";
 import { FORGE_KEY } from "./types/keys";
 
