@@ -81,7 +81,7 @@ describe("FragmentsStealer: ", () => {
     );
   });
 
-  test("a player can increase the steal counter value by presing - if its bigger than 0", () => {
+  test("a player can decrease the steal counter value by presing - if its bigger than 0", () => {
     renderWithRedux(<App />);
 
     fireEvent.click(getPlayerFragmentsStealerDecreaseButton({ player: 1 }));
@@ -91,7 +91,7 @@ describe("FragmentsStealer: ", () => {
     );
   });
 
-  test("a player can increase the steal counter value by presing -", () => {
+  test("a player can decrease the steal counter value by presing -", () => {
     renderWithRedux(<App />);
 
     fireEvent.click(getPlayerFragmentsStealerIncreaseButton({ player: 1 }));

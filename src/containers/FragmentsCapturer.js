@@ -1,7 +1,12 @@
 import { connect } from "react-redux";
 import FragmentsCapturer from "../components/FragmentsCapturer";
 import { getCapture, getCapturedFragments } from "../selectors/counter";
-import { incrementCounter, resetCounter, captureFragments } from "../actions";
+import {
+  incrementCounter,
+  resetCounter,
+  captureFragments,
+  removeCapture
+} from "../actions";
 
 const mapStateToProps = (state, props) => {
   return {
@@ -16,7 +21,8 @@ const mapDispatchToProps = (dispatch, ownProps) => {
       dispatch(captureFragments(value, id, "capture")),
     resetCounter: id => dispatch(resetCounter(id, "capture")),
     decrementCounter: id => dispatch(incrementCounter(-1, id, "capture")),
-    incrementCounter: id => dispatch(incrementCounter(1, id, "capture"))
+    incrementCounter: id => dispatch(incrementCounter(1, id, "capture")),
+    removeCapture: (value, id) => dispatch(removeCapture(value, id))
   };
 };
 
