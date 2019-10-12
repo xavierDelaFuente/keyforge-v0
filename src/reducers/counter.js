@@ -2,26 +2,28 @@ import {
   INCREMENT_COUNTER,
   RESET_COUNTER,
   STEAL_FRAGMENTS,
-  CAPTURE_FRAGMENTS
-} from "../actions/types/counter";
+  CAPTURE_FRAGMENTS,
+  REMOVE_CAPTURE
+} from "../actions";
 
 const initalValue = 0;
+const defaultState = {
+  count: initalValue,
+  steal: initalValue,
+  capture: initalValue,
+  capturedFragments: []
+};
+
 export const initialState = {
   allIds: ["player-1", "player-2"],
   byId: {
     "player-1": {
       id: "player-1",
-      count: initalValue,
-      steal: initalValue,
-      capture: initalValue,
-      capturedFragments: initalValue
+      ...defaultState
     },
     "player-2": {
       id: "player-2",
-      count: initalValue,
-      steal: initalValue,
-      capture: initalValue,
-      capturedFragments: initalValue
+      ...defaultState
     }
   }
 };
@@ -94,7 +96,26 @@ export const counter = (state = initialState, action) => {
           },
           [id]: {
             ...state.byId[id],
-            capturedFragments: state.byId[id].capturedFragments + tValue
+            capturedFragments: [...state.byId[id].capturedFragments, tValue]
+          }
+        }
+      };
+    case REMOVE_CAPTURE:
+      ({ id, value } = action);
+      otherId = state.allIds.filter(identifier => identifier !== id);
+      return {
+        ...state,
+        byId: {
+          ...state.byId,
+          [otherId]: {
+            ...state.byId[otherId],
+            count: state.byId[otherId].count + value
+          },
+          [id]: {
+            ...state.byId[id],
+            capturedFragments: state.byId[id].capturedFragments.filter(
+              id => id !== value
+            )
           }
         }
       };

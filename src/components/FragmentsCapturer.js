@@ -9,7 +9,8 @@ const FragmentsCapturer = ({
   resetCounter,
   captureFragments,
   incrementCounter,
-  decrementCounter
+  decrementCounter,
+  removeCapture
 }) => {
   const captureFragmentsFromPlayer = (counterValue, id) => {
     captureFragments(counterValue, id);
@@ -22,11 +23,22 @@ const FragmentsCapturer = ({
         justifyContent: "space-around",
         flexDirection: "column"
       }}
-      data-testid="fragments-capturer"
+      data-testid="captured-fragments"
     >
-      <div data-testid="fragments-captured">
+      <div>
         <h4>Captured Fragments:</h4>
-        <div>{fragments}</div>
+        {fragments.length &&
+          fragments.map((fragment, key) => (
+            <div key={`${key}--${fragment}`}>
+              <button
+                data-testid="decapture-fragments"
+                onClick={() => removeCapture(fragment, id)}
+              >
+                x
+              </button>
+              <div data-testid="captured-fragment">{fragment}</div>
+            </div>
+          ))}
       </div>
       <Counter
         id={id}
@@ -37,7 +49,7 @@ const FragmentsCapturer = ({
       />
       <button
         onClick={() => captureFragmentsFromPlayer(counterValue, id)}
-        data-testid="steal-fragments"
+        data-testid="capture-fragments"
       >
         Captured Fragments
       </button>
